@@ -1,0 +1,9 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "extensions": [
+		"ms-azuretools.vscode-docker",
+		"ms-python.python",
+		"ms-toolsai.jupyter",
+		"cweijan.vscode-mysql-client2"
+	]
+}
