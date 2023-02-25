@@ -10,14 +10,6 @@ FROM docker.io/python:3.7-slim-stretch
 
 # https://opsx.alibaba.com/mirror
 # 使用阿里云镜像地址。修改debian apt 更新地址，pip 地址，设置时区。
-RUN echo  "deb http://mirrors.aliyun.com/debian/ stretch main non-free contrib\n\
-deb-src http://mirrors.aliyun.com/debian/ stretch main non-free contrib\n\
-deb http://mirrors.aliyun.com/debian-security stretch/updates main\n\
-deb-src http://mirrors.aliyun.com/debian-security stretch/updates main\n\
-deb http://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib\n\
-deb-src http://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib\n\
-deb http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib\n\
-deb-src http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" > /etc/apt/sources.list && \
 echo  "[global]\n\
 trusted-host=mirrors.aliyun.com\n\
 index-url=http://mirrors.aliyun.com/pypi/simple" > /etc/pip.conf && \
