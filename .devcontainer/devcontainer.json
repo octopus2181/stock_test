@@ -1,18 +1,8 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/anaconda-postgres
 {
-	"name": "Python3_stat",
-	"build": {
-		"dockerfile": "Dockerfile",
-		"context": "..",
-	},
-	"customizations": {
-		"vscode": {
-			"extensions": [
-						"ms-azuretools.vscode-docker",
-						"ms-python.python",
-						"ms-toolsai.jupyter",
-						"cweijan.vscode-mysql-client2"
-						]
-		}
-	},
-	"remoteUser": "vscode"
+	"name": "stock_stat_tmp",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "stat",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
 }

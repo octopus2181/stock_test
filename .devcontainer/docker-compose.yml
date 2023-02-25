@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  stat:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:     
+      - ".stock/jobs:/data/stock"
+      - ".stock/log:/data/log"
+      - ".stock/stat:/data/stat"
+      
+      
+
