@@ -37,9 +37,7 @@ RUN apt-get update && apt-get install -y  gcc make python3-dev cron  && \
     pip3 install numpy==1.21.6  && \
     pip3 install pandas==1.3.5 && \
     pip3 install akshare==1.8.96 && \
-    pip3 install stockstats==0.5.2 && \
-    apt-get --purge remove -y gcc make python3-dev
-
+    pip3 install stockstats==0.5.2
 # /usr/local/lib/python3.7/site-packages/pandas/
 # 1.解决 pandas 数据插入问题。直接修改数据库驱动 sqlalchemy
 # 修改：statement.replace("INSERT INTO","INSERT IGNORE INTO")
