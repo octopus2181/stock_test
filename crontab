@@ -1,0 +1,2 @@
+# 每天凌晨 2 点执行
+2 0 * * * /usr/local/bin/python3 /app/your_cron_script.py > /var/log/cron.log 2>&1
