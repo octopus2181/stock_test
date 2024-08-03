@@ -14,7 +14,7 @@ WORKDIR /app
 COPY . /app
 
 # 安装应用所需的 Python 包
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 # 设置 Supervisor 配置文件
 COPY supervisor.conf /etc/supervisor/conf.d/supervisor.conf
