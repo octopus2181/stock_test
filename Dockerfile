@@ -1,38 +1,35 @@
+# 使用官方的 slim 镜像作为基础
 FROM python:3.11-slim
+
+# 更新包列表
+RUN apt-get update && apt-get upgrade -y
+
+# 安装 Supervisor 和 cron
+RUN apt-get install -y supervisor cron
 
 # 设置工作目录
 WORKDIR /app
 
-# 安装必要的系统包
-RUN apt-get update && \
-    apt-get install -y cron supervisor && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# 创建一个目录来存放 Miniconda 环境
-RUN mkdir -p /opt/miniconda && \
-    chmod -R 777 /opt/miniconda
-
-# 安装所需的 Python 包
-COPY environment.yml .
-RUN conda env create -f environment.yml
-
-# 激活 conda 环境
-ENV PATH="/opt/miniconda/envs/myenv/bin:$PATH"
-
 # 复制应用代码到容器
-COPY . .
+COPY . /app
 
-# 创建 supervisord 配置文件
+# 安装应用所需的 Python 包
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 设置 Supervisor 配置文件
 COPY supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
-# 创建定时任务配置文件
-RUN echo "* * * * * /usr/bin/supervisorctl restart myapp" > /etc/cron.d/restart_myapp && \
-    chmod 0644 /etc/cron.d/restart_myapp
+# 设置定时任务配置文件
+COPY crontab /etc/cron.d/crontab
 
-# 确保 cron 服务可以在容器中运行
-RUN mkdir -p /var/spool/cron/crontabs && \
-    chmod 0700 /var/spool/cron/crontabs
+# 设置环境变量
+ENV CRON_TZ=UTC
 
-# 启动 cron 服务和 supervisord
-CMD ["cron", "-f"]
+# 启动 Supervisor 和 cron
+CMD ["/usr/bin/supervisord", "-n"]
+
+# 确保 Supervisor 和 cron 在容器启动时运行
+ENTRYPOINT ["cron", "-f", "&", "/usr/bin/supervisord", "-n"]
+
+# 允许外部访问
+EXPOSE 8000
